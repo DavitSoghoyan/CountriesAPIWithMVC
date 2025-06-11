@@ -7,7 +7,6 @@ namespace CountriesAPI.Models
        public CountryDbContext (DbContextOptions<CountryDbContext> options):base(options) { }
 
         public DbSet<Country> Countries { get; set;}
-        public DbSet<City> Citys { get; set;}
-        public DbSet<Language> Languages { get; set;}   
+        public DbSet<City> Cities { get; set;}
     }
 }
