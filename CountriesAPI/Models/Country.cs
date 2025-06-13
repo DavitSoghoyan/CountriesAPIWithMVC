@@ -2,7 +2,7 @@
 {
     public class Country
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public required string Name { get; set; }
 
@@ -11,7 +11,7 @@
         public string? LargestCity {  get; set; }
 
         public string? Religion { get; set; }
-        public required int Area { get; set; }
+        public required double Area { get; set; }
         public int? GDPTotal { get; set; }
         public int? GDPPerCapita { get; set; }
         public string Language { get; set; } 

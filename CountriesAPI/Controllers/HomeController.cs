@@ -1,15 +1,18 @@
 using CountriesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace CountriesAPI.Controllers
 {
     public class HomeController : Controller
     {
+        CountryDbContext _countryDbContext;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,CountryDbContext countryDb)
         {
+            _countryDbContext = countryDb;
             _logger = logger;
         }
 
@@ -17,6 +20,13 @@ namespace CountriesAPI.Controllers
         {
             return View();
         }
+
+        public IActionResult GetAllCountries()
+        {
+            return View(_countryDbContext.Countries.Include(c=>c.Cities).ToList());
+        }
+
+
 
         public IActionResult Privacy()
         {
