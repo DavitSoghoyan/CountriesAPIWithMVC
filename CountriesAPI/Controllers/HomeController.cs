@@ -18,16 +18,34 @@ namespace CountriesAPI.Controllers
 
         public IActionResult Index()
         {
+           return View(_countryDbContext.Countries.Include(c => c.Cities).ToList());
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
             return View();
         }
-
-        public IActionResult GetAllCountries()
+        [HttpPost]
+        public IActionResult Create([FromForm] Country country)
         {
-            return View(_countryDbContext.Countries.Include(c=>c.Cities).ToList());
+            country.Id = default;
+            _countryDbContext.Countries.Add(country);
+            _countryDbContext.SaveChanges();
+            return View("Index");
+
         }
-
-
-
+        public IActionResult Delete(int id)
+        {
+            Country country = _countryDbContext.Countries.FirstOrDefault(c => c.Id == id);
+            if (country == null)
+            {
+                return NotFound();
+            }
+            _countryDbContext.Countries.Remove(country);
+            _countryDbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
         public IActionResult Privacy()
         {
             return View();

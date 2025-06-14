@@ -1,8 +1,35 @@
-﻿@{
+﻿@model IEnumerable<Country>
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Countries</h1>
 </div>
+<table class="table table-sm table-bordered table-striped">
+<thead>
+    <tr>
+        <td>Name</td>
+        <td>Population</td>
+        <td>Area</td>
+        <td>Capital</td>
+    </tr>
+</thead>
+<tbody>
+    @foreach (Country country in Model)
+    {
+        <tr>
+            <td>@country.Name</td>
+            <td>@country.Population</td>
+            <td>@country.Area</td>
+            <td>@country.Capital</td>
+            <td class="text-center">
+                <a asp-action="Delete" asp-route-id="@country.Id"
+                class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+</tbody>
+</table>
+<a asp-action="Create" class="btn btn-primary">Create</a>
